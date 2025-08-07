@@ -1,0 +1,187 @@
+/*!
+  Theme: Modern Dark Professional
+  Description: 现代专业暗色主题，适合代码展示
+  Author: Claude Code Enhancement
+  License: MIT
+  Updated: 2024
+*/
+
+/* 基础代码块样式 */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1.25em 1.5em;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #2d3748;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  position: relative;
+}
+
+code.hljs {
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+/* 代码块容器增强 */
+pre {
+  margin: 1em 0;
+  position: relative;
+  background: transparent;
+}
+
+/* 主色彩方案 */
+.hljs {
+  color: #e2e8f0;
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+.hljs-subst {
+  color: #e2e8f0;
+}
+
+/* 注释 - 柔和灰色 */
+.hljs-comment {
+  color: #718096;
+  font-style: italic;
+}
+
+/* 关键字 - 蓝紫色系 */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-meta .hljs-keyword,
+.hljs-doctag,
+.hljs-section {
+  color: #81c8ff;
+  font-weight: 600;
+}
+
+/* 属性 - 青色 */
+.hljs-attr {
+  color: #7dd3fc;
+}
+
+.hljs-attribute {
+  color: #c084fc;
+}
+
+/* 数字和命名空间 - 橙色 */
+.hljs-name,
+.hljs-type,
+.hljs-number,
+.hljs-selector-id,
+.hljs-quote,
+.hljs-template-tag {
+  color: #fbb865;
+}
+
+.hljs-selector-class {
+  color: #81c8ff;
+}
+
+/* 字符串和变量 - 绿色系 */
+.hljs-string,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr {
+  color: #7dd3fc;
+}
+
+/* 元数据 */
+.hljs-meta,
+.hljs-selector-pseudo {
+  color: #c084fc;
+}
+
+/* 内置函数 - 黄色 */
+.hljs-built_in,
+.hljs-title,
+.hljs-literal {
+  color: #fbb865;
+  font-weight: 500;
+}
+
+/* 标点符号 */
+.hljs-bullet,
+.hljs-code {
+  color: #94a3b8;
+}
+
+.hljs-meta .hljs-string {
+  color: #7dd3fc;
+}
+
+/* Git diff 样式 */
+.hljs-deletion {
+  color: #fca5a5;
+  background: rgba(252, 165, 165, 0.1);
+}
+
+.hljs-addition {
+  color: #86efac;
+  background: rgba(134, 239, 172, 0.1);
+}
+
+/* 强调样式 */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+  color: #f1f5f9;
+}
+
+/* 运算符和标签 */
+.hljs-formula,
+.hljs-operator,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  color: #94a3b8;
+}
+
+/* 选择器增强 */
+.hljs-selector-class {
+  color: #fbbf24;
+}
+
+.hljs-selector-id {
+  color: #fb7185;
+}
+
+/* 语言特定增强 */
+.hljs-function {
+  color: #7dd3fc;
+}
+
+.hljs-class {
+  color: #fbbf24;
+}
+
+/* 滚动条美化 */
+pre code.hljs::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre code.hljs::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 4px;
+}
+
+pre code.hljs::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+pre code.hljs::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}

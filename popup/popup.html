@@ -4,15 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style></style>
+    <style>
+      body {
+        width: 280px;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      h3 {
+        margin: 0 0 16px 0;
+        font-weight: 600;
+        font-size: 18px;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+      
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #334155;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+      }
+      
+      select:hover {
+        background: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      }
+      
+      select:focus {
+        outline: none;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+      }
+      
+      option {
+        padding: 8px;
+        background: white;
+        color: #334155;
+      }
+    </style>
   </head>
   <body>
     <h3>Choose Theme</h3>
 
-    <label for="theme">Theme</label>
+    <label for="theme">选择代码主题</label>
     <select name="themes" id="theme">
-      <option value="stackoverflow-light.css">stackoverflow-light</option>
-      <option value="stackoverflow-dark.css">stackoverflow-dark</option>
+      <option value="modern-dark.css">现代暗色主题</option>
+      <option value="modern-light.css">现代亮色主题</option>
+      <option value="stackoverflow-dark.css">StackOverflow 暗色</option>
+      <option value="stackoverflow-light.css">StackOverflow 亮色</option>
     </select>
 
     <script src="popup.js"></script>

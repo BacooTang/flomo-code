@@ -31,7 +31,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     }
 });
 
-const DEFAULT_THEME = 'stackoverflow-dark.css';
+const DEFAULT_THEME = 'modern-dark.css';
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ chooseTheme: DEFAULT_THEME }, () => {
         console.log('保存成功');

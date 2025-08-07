@@ -1,4 +1,101 @@
+// 设置内容容器宽度的函数
+function setContentWidth(width = null) {
+    // 使用完整的XPath查找目标元素
+    const xpath = "/html/body/div[1]/div[1]/section/div[1]/div[3]";
+    const targetElement = document.evaluate(
+        xpath,
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+    ).singleNodeValue;
+    
+    if (targetElement) {
+        if (width) {
+            targetElement.style.width = width;
+        } else {
+            targetElement.style.width = ''; // 恢复原始宽度
+        }
+        console.log(`已设置内容宽度为${width || '原始'}`);
+    }
+}
+
+// 切换宽度模式
+function toggleWidth() {
+    chrome.storage.local.get(['isWideMode'], function(result) {
+        const newMode = !result.isWideMode;
+        chrome.storage.local.set({ isWideMode: newMode });
+        
+        if (newMode) {
+            setContentWidth('900px');
+            updateWidthButton(true);
+        } else {
+            setContentWidth(null);
+            updateWidthButton(false);
+        }
+    });
+}
+
+// 更新宽度切换按钮的样式
+function updateWidthButton(isWideMode) {
+    const widthBtn = document.getElementById('flomo-width-toggle');
+    if (widthBtn) {
+        const icon = widthBtn.querySelector('svg');
+        if (isWideMode) {
+            widthBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+            widthBtn.title = '切换到原始宽度';
+            // 宽屏图标
+            icon.innerHTML = '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>';
+        } else {
+            widthBtn.style.background = 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)';
+            widthBtn.title = '切换到宽屏模式';
+            // 窄屏图标
+            icon.innerHTML = '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>';
+        }
+    }
+}
+
+// 初始化宽度设置
+function initializeWidth() {
+    chrome.storage.local.get(['isWideMode'], function(result) {
+        if (result.isWideMode) {
+            setContentWidth('900px');
+            updateWidthButton(true);
+        } else {
+            updateWidthButton(false);
+        }
+    });
+}
+
+// 使用MutationObserver监听DOM变化，确保在页面动态加载后也能应用样式
+function observeAndSetWidth() {
+    // 初始化设置
+    setTimeout(initializeWidth, 100);
+    
+    const observer = new MutationObserver(function(mutations) {
+        let shouldCheck = false;
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                shouldCheck = true;
+            }
+        });
+        
+        if (shouldCheck) {
+            setTimeout(initializeWidth, 100); // 延迟执行，确保DOM完全加载
+        }
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
 window.onload = function () {
+    // 初始化宽度设置
+    observeAndSetWidth();
+    
+    // 创建代码高亮按钮
     const hljsbtn = document.createElement('button');
     const img = document.createElement('img');
     img.src = chrome.runtime.getURL('images/code.svg');
@@ -42,6 +139,60 @@ window.onload = function () {
     hljsbtn.addEventListener('click', highlightCodeBlocks);
 
     document.body.appendChild(hljsbtn);
+
+    // 创建宽度切换按钮
+    const widthBtn = document.createElement('button');
+    widthBtn.id = 'flomo-width-toggle';
+    
+    const widthIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    widthIcon.setAttribute('width', '20');
+    widthIcon.setAttribute('height', '20');
+    widthIcon.setAttribute('viewBox', '0 0 24 24');
+    widthIcon.setAttribute('fill', 'none');
+    widthIcon.setAttribute('stroke', 'currentColor');
+    widthIcon.setAttribute('stroke-width', '2');
+    widthIcon.setAttribute('stroke-linecap', 'round');
+    widthIcon.setAttribute('stroke-linejoin', 'round');
+    
+    widthBtn.appendChild(widthIcon);
+
+    widthBtn.type = 'button';
+    widthBtn.style.height = '48px';
+    widthBtn.style.width = '48px';
+    widthBtn.style.borderRadius = '50%';
+    widthBtn.style.border = 'none';
+    widthBtn.style.background = 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)';
+    widthBtn.style.color = '#fff';
+    widthBtn.style.cursor = 'pointer';
+    widthBtn.style.position = 'fixed';
+    widthBtn.style.bottom = '140px'; // 在代码高亮按钮上方
+    widthBtn.style.right = '24px';
+    widthBtn.style.zIndex = '9999';
+    widthBtn.style.display = 'flex';
+    widthBtn.style.justifyContent = 'center';
+    widthBtn.style.alignItems = 'center';
+    widthBtn.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)';
+    widthBtn.style.transition = 'all 0.3s ease';
+    widthBtn.style.backdropFilter = 'blur(10px)';
+    widthBtn.title = '切换到宽屏模式';
+
+    // 悬停效果
+    widthBtn.addEventListener('mouseenter', function() {
+        widthBtn.style.transform = 'scale(1.1) translateY(-2px)';
+        widthBtn.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15)';
+    });
+
+    widthBtn.addEventListener('mouseleave', function() {
+        widthBtn.style.transform = 'scale(1) translateY(0)';
+        widthBtn.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)';
+    });
+
+    widthBtn.addEventListener('click', toggleWidth);
+
+    document.body.appendChild(widthBtn);
+
+    // 初始化按钮状态
+    initializeWidth();
 };
 
 // 添加消息监听器
